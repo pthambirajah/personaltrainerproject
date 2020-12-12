@@ -5,7 +5,6 @@ import Snackbar from '@material-ui/core/Snackbar';
 import AddTraining from './AddTraining';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
-import Moment from 'react-moment';
 import moment from "moment";
 
 function Traininglist(){
@@ -32,7 +31,7 @@ function Traininglist(){
             cellRendererFramework: params => <Button 
                                                 color="secondary"
                                                 size="small"
-                                                onClick={() => deleteTraining(params.value)}>
+                                                onClick={() => deleteTraining('https://customerrest.herokuapp.com/api/trainings/'+params.data.id)}>
                                                 Delete</Button>
         }
 
@@ -60,16 +59,17 @@ function Traininglist(){
     }
 
     const addTraining = (newTraining) => {
-        fetch('https://customerrest.herokuapp.com/trainings', {
+        fetch('https://customerrest.herokuapp.com/api/trainings', {
             method: 'POST',
             headers: {'Content-type' : 'application/json'},
             body: JSON.stringify(newTraining)
         })
         .then(_ => getTrainings())
         .then(_ => {
-            setMsg('Customer was added successfully');
+            setMsg('Training was added successfully');
             setOpen(true)})
         .then(err => console.error(err))
+        console.log(newTraining);
     }
 
     const handleClose = () => {

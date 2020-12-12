@@ -11,7 +11,8 @@ function AddTraining(props){
     const [training, setTraining] = React.useState({
         date:'',
         duration:'',
-        activity:''
+        activity:'',
+        customer:'https://localhost:8080/api/customers/'
     });
 
     const handleClickOpen = () => {
@@ -24,12 +25,11 @@ function AddTraining(props){
 
     const handleSave = () => {
         props.addTraining(training); 
+        console.log(training)
         handleClose();
     }
 
-
-
-    const inputChanged = (event) =>{
+    const trainingInputChanged = (event) =>{
         setTraining({...training, [event.target.name]: event.target.value})
     }
 
@@ -41,40 +41,39 @@ function AddTraining(props){
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">New training</DialogTitle>
                 <DialogContent>
-               
-                <TextField
-                    autoFocus
-                    name="firstname"
-                    value={training.date}
-                    onChange={inputChanged}
-                    margin="dense"
-                    label="Firstname"
-                    fullWidth
-                />
-                <TextField
-                    name="lastname"
-                    value={training.duration}
-                    onChange={inputChanged}
-                    margin="dense"
-                    label="Lastname"
-                    fullWidth
-                />
-                <TextField
-                    name="streetaddress"
-                    value={training.activity}
-                    onChange={inputChanged}
-                    margin="dense"
-                    label="Street Address"
-                    fullWidth
-                />
-                <TextField
-                    name="postcode"
-                    value={training.activity}
-                    onChange={inputChanged}
-                    margin="dense"
-                    label="Post Code"
-                    fullWidth
-                />
+                    <TextField
+                        name="date"
+                        type="date"
+                        value={training.date}
+                        onChange={trainingInputChanged}
+                        margin="dense"
+                        label="Training date"
+                        fullWidth
+                    />
+                    <TextField
+                        name="duration"
+                        value={training.duration}
+                        onChange={trainingInputChanged}
+                        margin="dense"
+                        label="Duration"
+                        fullWidth
+                    />
+                    <TextField
+                        name="activity"
+                        value={training.activity}
+                        onChange={trainingInputChanged}
+                        margin="dense"
+                        label="Activity"
+                        fullWidth
+                    />
+                    <TextField
+                        name="customer"
+                        value={training.customer}
+                        onChange={trainingInputChanged}
+                        margin="dense"
+                        label="Customer ID"
+                        fullWidth
+                    />
                 </DialogContent>
                 <DialogActions>
                 <Button onClick={handleClose} color="primary">
