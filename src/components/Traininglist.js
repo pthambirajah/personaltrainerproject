@@ -5,6 +5,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import AddTraining from './AddTraining';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
+import Moment from 'react-moment';
+import moment from "moment";
 
 function Traininglist(){
     
@@ -19,7 +21,9 @@ function Traininglist(){
     }, []);
 
     const columns = [
-        {headerName: 'Date', field: 'date', sortable: true, filter: true},
+        {headerName: 'Date', field: 'date', cellRenderer: (data) => {
+            return moment(data.createdAt).format('MM/DD/YYYY HH:mm')
+        }, sortable: true, filter: true},
         {headerName: 'Duration', field: 'duration', sortable: true, filter: true},
         {headerName: 'Activity', field: 'activity', sortable: true, filter: true},
         {   
@@ -99,6 +103,8 @@ function Traininglist(){
             </div>
         </div>
     );
-
+    
 }
+
+
 export default Traininglist;
