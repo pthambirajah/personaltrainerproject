@@ -31,8 +31,6 @@ function AddCustomer(props){
         handleClose();
     }
 
-
-
     const inputChanged = (event) =>{
         setCustomer({...customer, [event.target.name]: event.target.value})
     }

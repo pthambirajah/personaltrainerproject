@@ -2,7 +2,6 @@ import React, {useEffect, useState, useRef} from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
-import AddTraining from './AddTraining';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
 import moment from "moment";

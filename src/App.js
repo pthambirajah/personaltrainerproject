@@ -12,7 +12,6 @@ import TrainingIcon from '@material-ui/icons/FitnessCenterSharp';
 import CalendarIcon from '@material-ui/icons/InsertInvitationSharp';
 import HomeIcon from '@material-ui/icons/HomeSharp';
 
-
 const useStyles = makeStyles(() => ({
   drawerPaper: { width: 'inherit'},
   link: {
