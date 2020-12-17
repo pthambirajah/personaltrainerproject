@@ -3,6 +3,8 @@ import { AgGridReact } from 'ag-grid-react';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import AddCustomer from './AddCustomer';
+import AddTraining from './AddTraining';
+
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
 
@@ -34,8 +36,13 @@ function Customerlist(){
                                                 size="small"
                                                 onClick={() => deleteCustomer(params.data.links[0].href)}>
                                                 Delete</Button>
+        },
+        {   
+            headerName:'', 
+            field: 'links[0].href',
+            cellRendererFramework: params => <AddTraining 
+                                                addTraining={addTraining} params={params.data.links[0].href}></AddTraining>
         }
-
     ]
 
     const getCustomers = () => {
@@ -69,7 +76,22 @@ function Customerlist(){
         .then(_ => {
             setMsg('Customer was added successfully');
             setOpen(true)})
-        .then(err => console.error(err))
+        .catch(err => console.error(err))
+    }
+
+    const addTraining = (training) => {
+        fetch('https://customerrest.herokuapp.com/api/trainings', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(training)
+        })
+            .then(_ => getCustomers())
+            .then(_ => {
+                setMsg('New Training Added');
+                setOpen(true)})
+            .catch(err => console.log(err))
     }
 
     const handleClose = () => {
@@ -79,7 +101,7 @@ function Customerlist(){
     return(
         <div>
             <AddCustomer addCustomer={addCustomer}/>
-            <div className="ag-theme-material" style={{height:'700px', width:'90%', margin:'auto'}}>
+            <div className="ag-theme-material" style={{height:'700px', width:'100%', margin:'auto'}}>
             <AgGridReact
             ref={gridRef}
             onGridRead={params => {

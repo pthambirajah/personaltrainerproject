@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+//import { DateTimePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
 
 function AddTraining(props){
     const [open, setOpen] = React.useState(false);
@@ -12,8 +13,10 @@ function AddTraining(props){
         date:'',
         duration:'',
         activity:'',
-        customer:'https://localhost:8080/api/customers/'
+        customer: props.params
     });
+
+    
 
     const handleClickOpen = () => {
     setOpen(true);
@@ -31,6 +34,7 @@ function AddTraining(props){
 
     const trainingInputChanged = (event) =>{
         setTraining({...training, [event.target.name]: event.target.value})
+        console.log(props.params);
     }
 
     return(
@@ -41,13 +45,13 @@ function AddTraining(props){
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">New training</DialogTitle>
                 <DialogContent>
-                    <TextField
+                <TextField
                         name="date"
-                        type="date"
                         value={training.date}
+                        type="date"
                         onChange={trainingInputChanged}
                         margin="dense"
-                        label="Training date"
+                        label="Date"
                         fullWidth
                     />
                     <TextField
@@ -64,14 +68,6 @@ function AddTraining(props){
                         onChange={trainingInputChanged}
                         margin="dense"
                         label="Activity"
-                        fullWidth
-                    />
-                    <TextField
-                        name="customer"
-                        value={training.customer}
-                        onChange={trainingInputChanged}
-                        margin="dense"
-                        label="Customer ID"
                         fullWidth
                     />
                 </DialogContent>

@@ -21,10 +21,11 @@ function Traininglist(){
 
     const columns = [
         {headerName: 'Date', field: 'date', cellRenderer: (data) => {
-            return moment(data.createdAt).format('MM/DD/YYYY HH:mm')
+            return moment(data.value).format('MM/DD/YYYY HH:mm')
         }, sortable: true, filter: true},
         {headerName: 'Duration', field: 'duration', sortable: true, filter: true},
         {headerName: 'Activity', field: 'activity', sortable: true, filter: true},
+        {headerName: 'Customer', field: 'customer.lastname', sortable: true, filter: true},
         {   
             headerName:'', 
             field: 'id',
@@ -58,28 +59,13 @@ function Traininglist(){
         }
     }
 
-    const addTraining = (newTraining) => {
-        fetch('https://customerrest.herokuapp.com/api/trainings', {
-            method: 'POST',
-            headers: {'Content-type' : 'application/json'},
-            body: JSON.stringify(newTraining)
-        })
-        .then(_ => getTrainings())
-        .then(_ => {
-            setMsg('Training was added successfully');
-            setOpen(true)})
-        .then(err => console.error(err))
-        console.log(newTraining);
-    }
-
     const handleClose = () => {
         setOpen(false);
     }
 
     return(
         <div>
-            <AddTraining addTraining={addTraining}/>
-            <div className="ag-theme-material" style={{height:'700px', width:'90%', margin:'auto'}}>
+            <div className="ag-theme-material" style={{height:'700px', width:'100%', margin:'auto'}}>
             <AgGridReact
             ref={gridRef}
             onGridRead={params => {
